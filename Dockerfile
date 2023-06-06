@@ -12,6 +12,7 @@ CMD bin/neo4j-admin set-initial-password ${NEO4J_PASSWD} || true && \
     for f in import/*; do \
     echo "Importing data... $f" && \
       [ -f "$f" ] || continue; \
+      sleep 10 && \
       cat "$f" | NEO4J_USERNAME=neo4j NEO4J_PASSWORD=${NEO4J_PASSWD} bin/cypher-shell --fail-fast && rm "$f"; \
     done && \
     tail -f logs/neo4j.log

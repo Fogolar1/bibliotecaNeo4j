@@ -30,12 +30,12 @@ public class LocacoesController extends MainController{
 
         Locacoes locacao = locacoesService.findLocacoesById(id);
 
-        return String.format("%d | %s | %s | %s | %s",
+        return String.format("%-45d | %-45s | %-45s | %-45s | %-45s",
                 locacao.getId(),
                 locacao.getDataInicio(),
                 locacao.getDataFim(),
-                locacao.getLocadores().get(0).getNome(),
-                locacao.getLivros().get(0).getTitulo()
+                locacao.getLocadores().getNome(),
+                locacao.getLivros().getTitulo()
         );
     }
 
@@ -53,9 +53,7 @@ public class LocacoesController extends MainController{
         Long idLocador = scanner.nextLong();
         scanner.nextLine();
 
-        Locacoes locacao = Locacoes.builder().dataFim(LocalDate.parse(dataFim, formatter)).dataInicio(LocalDate.parse(dataInicio, formatter)).build();
-
-        Locacoes savedLocacao = locacoesService.saveLocacoes(locacao, idLivro, idLocador);
+        Locacoes savedLocacao = locacoesService.saveLocacoes(LocalDate.parse(dataFim, formatter), LocalDate.parse(dataInicio, formatter) , idLivro, idLocador);
 
         if(Objects.nonNull(savedLocacao))
             logger.info("Locação salva com sucesso!");
@@ -108,12 +106,12 @@ public class LocacoesController extends MainController{
     private String returnTable(List<Locacoes> locacoes){
         StringBuilder table = new StringBuilder();
         for(Locacoes locacao : locacoes){
-            String row = String.format("%d | %s | %s | %s | %s",
+            String row = String.format("%-45d | %-45s | %-45s | %-45s | %-45s",
                     locacao.getId(),
                     locacao.getDataInicio(),
                     locacao.getDataFim(),
-                    locacao.getLocadores().get(0).getNome(),
-                    locacao.getLivros().get(0).getTitulo()
+                    locacao.getLocadores().getNome(),
+                    locacao.getLivros().getTitulo()
             );
 
             table.append(row).append("\n");

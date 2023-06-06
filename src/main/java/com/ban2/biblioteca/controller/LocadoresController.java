@@ -20,7 +20,7 @@ public class LocadoresController extends MainController{
         List<Locadores> locadores = locadoresService.listAllLocadores();
         StringBuilder table = new StringBuilder();
         for(Locadores locador : locadores){
-            String row = String.format("| %d | %s | %s | %s ",
+            String row = String.format("| %-45d | %-45s | %-45s | %-45s ",
                     locador.getId(), locador.getNome(), locador.getTelefone(), locador.getEmail());
 
             table.append(row).append("\n");
@@ -34,7 +34,7 @@ public class LocadoresController extends MainController{
         Long id = scanner.nextLong();
         Locadores locador = locadoresService.findLocadoresById(id);
 
-        return String.format("| %d | %s | %s | %s ",
+        return String.format("| %-45d | %-45s | %-45s | %-45s ",
                 locador.getId(), locador.getNome(), locador.getTelefone(), locador.getEmail());
     }
 
@@ -94,7 +94,7 @@ public class LocadoresController extends MainController{
         StringBuilder table = new StringBuilder();
         for(Locadores locador : locadores){
             Enderecos enderecos = locador.getEnderecos().get(0);
-            String row = String.format("| %d | %s | %s | %s | %s | %s | %s | %d",
+            String row = String.format("| %-45d | %-45s | %-45s | %-45s | %-45s | %-45s | %-45s | %-45d",
                     locador.getId(), locador.getNome(), locador.getTelefone(), locador.getEmail(),
                     enderecos.getCidade(), enderecos.getBairro(), enderecos.getLogradouro(), enderecos.getNumero());
 

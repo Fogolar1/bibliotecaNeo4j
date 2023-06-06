@@ -17,7 +17,7 @@ public class LivrosController extends MainController {
         StringBuilder table = new StringBuilder();
         List<Livros> livros = livrosService.listAllLivros();
         for(Livros livro : livros){
-            String line = String.format("| %d | %s %n",
+            String line = String.format("| %-45d | %-45s %n",
                     livro.getId(),
                     livro.getTitulo());
 
@@ -34,7 +34,7 @@ public class LivrosController extends MainController {
         Long id = scanner.nextLong();
         Livros livro = livrosService.findLivrosById(id);
 
-        return String.format("| %d | %s  %n",
+        return String.format("| %-45d | %-45s  %n",
                 livro.getId(),
                 livro.getTitulo());
     }
@@ -90,7 +90,7 @@ public class LivrosController extends MainController {
         StringBuilder table = new StringBuilder();
         List<Livros> livros = livrosService.listAllLivros();
         for (Livros livro : livros) {
-            String line = String.format("| %d | %s | %s | %s %n",
+            String line = String.format("| %-45d | %-45s | %-45s | %-45s %n",
                     livro.getId(),
                     livro.getTitulo(),
                     livro.getAutores().get(0).getNome(),

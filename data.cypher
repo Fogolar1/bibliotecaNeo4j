@@ -40,11 +40,6 @@ CREATE (MOliveira:Locadores {nome:'Marcelo Oliveira', telefone:65980010, email:'
 CREATE (DSantos:Locadores {nome:'Douglas dos Santos', telefone:76164412, email:'douga10@gmail.com'});
 CREATE (DSouza:Locadores {nome:'Diego Souza', telefone:76164412, email:'dsousa@hotmail.com'});
 
-CREATE (L1:Locacoes {dataInicio:'2023-05-20', dataFim:'2023-07-20'});
-CREATE (L2:Locacoes {dataInicio:'2023-02-01', dataFim:'2023-02-16'});
-CREATE (L3:Locacoes {dataInicio:'2023-02-06', dataFim:'2023-03-16'});
-CREATE (L4:Locacoes {dataInicio:'2023-04-21', dataFim:'2023-05-16'});
-
 MATCH (PercyJackson1:Livros {titulo:"Percy Jackson e o Ladrão de Raios"}), (Rick:Autores {nome:"Rick Riordan"})
 CREATE (PercyJackson1)-[:ESCRITO_POR]->(Rick);
 MATCH (HP1:Livros {titulo:'Harry Potter e a Pedra Filosofal'}), (Rowling:Autores {nome:'J.K. Rowling'})
@@ -88,20 +83,11 @@ CREATE (DSantos)-[:MORA_EM]->(ExpHolz);
 MATCH(DSouza:Locadores {nome:'Diego Souza'}), (SDumont:Enderecos {cidade:'Joinville', bairro:'Aventureiro', logradouro:'Santos Dumont', numero:7199})
 CREATE (DSouza)-[:MORA_EM]->(SDumont);
 
-MATCH (L1:Locacoes {dataInicio:'2023-05-20', dataFim:'2023-07-20'}), (PNunes:Locadores {nome:'Paulo Nunes'})
-CREATE (L1)-[:LOCADO_POR]->(PNunes);
-MATCH (L2:Locacoes {dataInicio:'2023-02-01', dataFim:'2023-02-16'}), (AMello:Locadores {nome:'Arthur Mello'})
-CREATE (L2)-[:LOCADO_POR]->(AMello);
-MATCH (L3:Locacoes {dataInicio:'2023-02-06', dataFim:'2023-03-16'}), (LSilva:Locadores {nome:'Lorena Silva'})
-CREATE (L3)-[:LOCADO_POR]->(LSilva);
-MATCH (L4:Locacoes {dataInicio:'2023-04-21', dataFim:'2023-05-16'}), (MOliveira:Locadores {nome:'Marcelo Oliveira'})
-CREATE (L4)-[:LOCADO_POR]->(MOliveira);
-
-MATCH (L1:Locacoes {dataInicio:'2023-05-20', dataFim:'2023-07-20'}), (PercyJackson1:Livros {titulo:"Percy Jackson e o Ladrão de Raios"})
-CREATE (L1)-[:LOCADO]->(PercyJackson1);
-MATCH (L2:Locacoes {dataInicio:'2023-02-01', dataFim:'2023-02-16'}), (HP1:Livros {titulo:'Harry Potter e a Pedra Filosofal'})
-CREATE (L2)-[:LOCADO]->(HP1);
-MATCH (L3:Locacoes {dataInicio:'2023-02-06', dataFim:'2023-03-16'}), (Casmurro:Livros {titulo:'Dom Casmurro'})
-CREATE (L3)-[:LOCADO]->(Casmurro);
-MATCH (L4:Locacoes {dataInicio:'2023-04-21', dataFim:'2023-05-16'}), (Memorias:Livros {titulo:'Memórias Póstumas de Brás Cubas'})
-CREATE (L4)-[:LOCADO]->(Memorias);
+MATCH (PNunes:Locadores {nome:'Paulo Nunes'}), (PercyJackson1:Livros {titulo:"Percy Jackson e o Ladrão de Raios"})
+CREATE (PNunes)-[:LOCOU {dataInicio:'2023-05-20', dataFim:'2023-07-20'}]->(PercyJackson1);
+MATCH (AMello:Locadores {nome:'Arthur Mello'}), (HP1:Livros {titulo:'Harry Potter e a Pedra Filosofal'})
+CREATE (AMello)-[:LOCOU {dataInicio:'2023-02-01', dataFim:'2023-02-16'}]->(HP1);
+MATCH (LSilva:Locadores {nome:'Lorena Silva'}), (Casmurro:Livros {titulo:'Dom Casmurro'})
+CREATE (LSilva)-[:LOCOU {dataInicio:'2023-02-06', dataFim:'2023-03-16'}]->(Casmurro);
+MATCH (MOliveira:Locadores {nome:'Marcelo Oliveira'}), (Memorias:Livros {titulo:'Memórias Póstumas de Brás Cubas'})
+CREATE (MOliveira)-[:LOCOU {dataInicio:'2023-04-21', dataFim:'2023-05-16'}]->(Memorias);

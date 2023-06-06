@@ -21,7 +21,7 @@ public class AutorController extends MainController {
         List<Autores> autores = autorService.listAllAutores();
         for(Autores autor : autores)
         {
-            String row = String.format("| %d | %s |", autor.getId(), autor.getNome());
+            String row = String.format("| %-45d | %-45s |", autor.getId(), autor.getNome());
             table.append(row).append("\n");
         }
 
@@ -34,7 +34,7 @@ public class AutorController extends MainController {
         Long id = scanner.nextLong();
         Autores autor =  autorService.findAutoresById(id);
 
-        return String.format("| %d | %s |", autor.getId(), autor.getNome());
+        return String.format("| %-45d | %-45s |", autor.getId(), autor.getNome());
     }
 
     @Override

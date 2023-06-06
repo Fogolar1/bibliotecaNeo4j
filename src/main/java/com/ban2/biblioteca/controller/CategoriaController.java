@@ -18,7 +18,7 @@ public class CategoriaController extends MainController {
         List<Categorias> categorias = categoriaService.listAllCategorias();
         for(Categorias categoria : categorias)
         {
-            String row = String.format("| %d | %s |", categoria.getId(), categoria.getCategoria());
+            String row = String.format("| %-45d | %-45s |", categoria.getId(), categoria.getCategoria());
             table.append(row).append("\n");
         }
 
@@ -31,7 +31,7 @@ public class CategoriaController extends MainController {
         Long id = scanner.nextLong();
         Categorias categoria = categoriaService.findCategoriasById(id);
 
-        return String.format("| %d | %s |", categoria.getId(), categoria.getCategoria());
+        return String.format("| %-45d | %-45s |", categoria.getId(), categoria.getCategoria());
     }
 
     @Override

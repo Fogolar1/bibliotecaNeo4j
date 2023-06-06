@@ -1,6 +1,8 @@
 package com.ban2.biblioteca.service;
 
+import com.ban2.biblioteca.node.Livros;
 import com.ban2.biblioteca.node.Locacoes;
+import com.ban2.biblioteca.node.Locadores;
 import com.ban2.biblioteca.repository.LocacoesRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,11 +25,15 @@ public class LocacoesService {
         return locacoesRepository.findById(id).orElseThrow(() -> new RuntimeException("Locacoes não encontrado"));
     }
 
-    public Locacoes saveLocacoes(Locacoes locacoes, Long idLivro,Long idLocador){
-        locacoes.locado(livrosService.findLivrosById(idLivro));
-        locacoes.locadoPor(locadoresService.findLocadoresById(idLocador));
+    public Locacoes saveLocacoes(LocalDate dataInicio, LocalDate dataFim , Long idLivro,Long idLocador){
+        Livros livro = livrosService.findLivrosById(idLivro);
+        Locadores locadores = locadoresService.findLocadoresById(idLocador);
 
-        return locacoesRepository.save(locacoes);
+        Locacoes locacao = new Locacoes(locadores, livro);
+        locacao.setDataFim(dataFim);
+        locacao.setDataInicio(dataInicio);
+
+        return locacoesRepository.save(locacao);
     }
 
     public Locacoes updateLocacoes(Long id, Locacoes locacoesToSave)  {

@@ -18,13 +18,14 @@ public class EnderecosController extends MainController {
         List<Enderecos> enderecos = enderecosService.listAllEnderecos();
         StringBuilder table = new StringBuilder();
         for(Enderecos endereco : enderecos){
-            String line = endereco.getId() + " | " +
-                    endereco.getCidade() + " | " +
-                    endereco.getBairro() + " | " +
-                    endereco.getLogradouro() + " | " +
-                    endereco.getNumero();
+            String row = String.format("| %-45d | %-45s | %-45s | %-45s | %-45d |",
+                    endereco.getId(),
+                    endereco.getCidade(),
+                    endereco.getBairro(),
+                    endereco.getLogradouro(),
+                    endereco.getNumero());
 
-            table.append(line).append("\n");
+            table.append(row).append("\n");
         }
 
         return table.toString();
@@ -35,7 +36,12 @@ public class EnderecosController extends MainController {
         logger.info("Insira o id do endereço que deseja buscar: ");
         Long id = scanner.nextLong();
         Enderecos endereco = enderecosService.findEnderecosById(id);
-        return String.format("| %d | %s | %s | %s | %d |", endereco.getId(), endereco.getCidade(), endereco.getBairro(), endereco.getLogradouro(), endereco.getNumero());
+        return String.format("| %-45d | %-45s | %-45s | %-45s | %-45d |",
+                endereco.getId(),
+                endereco.getCidade(),
+                endereco.getBairro(),
+                endereco.getLogradouro(),
+                endereco.getNumero());
     }
 
     @Override

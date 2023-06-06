@@ -26,6 +26,8 @@ public class Locadores {
     @Relationship(type = "MORA_EM", direction = Relationship.Direction.OUTGOING)
     private List<Enderecos> enderecos;
 
+    @Relationship(type = "LOCOU", direction = Relationship.Direction.OUTGOING)
+    private List<Locacoes> locacoes;
 
     public void moraEm(Enderecos endereco){
         if(this.enderecos == null)
