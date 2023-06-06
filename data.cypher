@@ -84,10 +84,10 @@ MATCH(DSouza:Locadores {nome:'Diego Souza'}), (SDumont:Enderecos {cidade:'Joinvi
 CREATE (DSouza)-[:MORA_EM]->(SDumont);
 
 MATCH (PNunes:Locadores {nome:'Paulo Nunes'}), (PercyJackson1:Livros {titulo:"Percy Jackson e o Ladrão de Raios"})
-CREATE (PNunes)-[:LOCOU {dataInicio:'2023-05-20', dataFim:'2023-07-20'}]->(PercyJackson1);
+CREATE (PNunes)-[:LOCOU {dataInicio:date('2023-05-20'), dataFim:date('2023-07-20')}]->(PercyJackson1);
 MATCH (AMello:Locadores {nome:'Arthur Mello'}), (HP1:Livros {titulo:'Harry Potter e a Pedra Filosofal'})
-CREATE (AMello)-[:LOCOU {dataInicio:'2023-02-01', dataFim:'2023-02-16'}]->(HP1);
+CREATE (AMello)-[:LOCOU {dataInicio:date('2023-02-01'), dataFim:date('2023-02-16')}]->(HP1);
 MATCH (LSilva:Locadores {nome:'Lorena Silva'}), (Casmurro:Livros {titulo:'Dom Casmurro'})
-CREATE (LSilva)-[:LOCOU {dataInicio:'2023-02-06', dataFim:'2023-03-16'}]->(Casmurro);
+CREATE (LSilva)-[:LOCOU {dataInicio:date('2023-02-06'), dataFim:date('2023-03-16')}]->(Casmurro);
 MATCH (MOliveira:Locadores {nome:'Marcelo Oliveira'}), (Memorias:Livros {titulo:'Memórias Póstumas de Brás Cubas'})
-CREATE (MOliveira)-[:LOCOU {dataInicio:'2023-04-21', dataFim:'2023-05-16'}]->(Memorias);
+CREATE (MOliveira)-[:LOCOU {dataInicio:date('2023-04-21'), dataFim:date('2023-05-16')}]->(Memorias);

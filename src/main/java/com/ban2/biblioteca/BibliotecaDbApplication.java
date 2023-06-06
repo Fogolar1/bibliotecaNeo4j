@@ -1,6 +1,6 @@
 package com.ban2.biblioteca;
 
-import com.ban2.biblioteca.menu.MenuUtils;
+import com.ban2.biblioteca.utils.MenuUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

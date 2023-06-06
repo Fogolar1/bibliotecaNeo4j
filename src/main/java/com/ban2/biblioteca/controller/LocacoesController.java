@@ -2,6 +2,7 @@ package com.ban2.biblioteca.controller;
 
 import com.ban2.biblioteca.node.Locacoes;
 import com.ban2.biblioteca.service.LocacoesService;
+import com.ban2.biblioteca.utils.PrinterUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 
@@ -15,84 +16,79 @@ import java.util.Objects;
 public class LocacoesController extends MainController{
     private final LocacoesService locacoesService;
     private static final String DATE_FORMAT = "dd/MM/yyyy";
-
+    private static final String[] HEADERS = {"ID", "Data Inicio", "Data Fim", "Livro", "Locador"};
 
     @Override
-    public String listAll() {
+    public void listAll() {
         List<Locacoes> locacoes = locacoesService.listAllLocacoes();
-        return returnTable(locacoes);
+        PrinterUtils.printHeader(HEADERS);
+        String retorno = returnTable(locacoes);
+        System.out.println(retorno);
     }
 
     @Override
-    public String findById() {
-        logger.info("Digite o id da locação que deseja buscar :");
+    public void findById() {
+        System.out.println("Digite o id da locação que deseja buscar :");
         Long id = scanner.nextLong();
-
+        PrinterUtils.printHeader(HEADERS);
         Locacoes locacao = locacoesService.findLocacoesById(id);
+        String retorno = returnTable(List.of(locacao));
 
-        return String.format("%-45d | %-45s | %-45s | %-45s | %-45s",
-                locacao.getId(),
-                locacao.getDataInicio(),
-                locacao.getDataFim(),
-                locacao.getLocadores().getNome(),
-                locacao.getLivros().getTitulo()
-        );
+        System.out.println(retorno);
     }
 
     @Override
     public void save() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
 
-        logger.info("Digite a data de inicio da locação (Padrão dd/MM/yyyy) : ");
+        System.out.println("Digite a data de inicio da locação (Padrão dd/MM/yyyy) : ");
         String dataInicio = scanner.nextLine();
-        logger.info("Digite a data de fim da locação (Padrão dd/MM/yyyy) :");
+        System.out.println("Digite a data de fim da locação (Padrão dd/MM/yyyy) :");
         String dataFim = scanner.nextLine();
-        logger.info("Digite o id do livro :");
+        System.out.println("Digite o id do livro :");
         Long idLivro = scanner.nextLong();
-        logger.info("Digite o id do locador :");
+        System.out.println("Digite o id do locador :");
         Long idLocador = scanner.nextLong();
         scanner.nextLine();
 
-        Locacoes savedLocacao = locacoesService.saveLocacoes(LocalDate.parse(dataFim, formatter), LocalDate.parse(dataInicio, formatter) , idLivro, idLocador);
+        Locacoes savedLocacao = locacoesService.saveLocacoes(LocalDate.parse(dataInicio, formatter), LocalDate.parse(dataFim, formatter) , idLivro, idLocador);
 
         if(Objects.nonNull(savedLocacao))
-            logger.info("Locação salva com sucesso!");
+            System.out.println("Locação salva com sucesso!");
         else
-            logger.info("Erro ao salvar locação!");
+            System.out.println("Erro ao salvar locação!");
     }
 
     @Override
     public void update() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
 
-        logger.info("Digite o id da locação a ser atualizada :");
+        System.out.println("Digite o id da locação a ser atualizada :");
         Long id = scanner.nextLong();
-        logger.info("Digite a nova data de inicio da locação (Padrão dd/MM/yyyy) : ");
+        System.out.println("Digite a nova data de inicio da locação (Padrão dd/MM/yyyy) : ");
         String dataInicio = scanner.nextLine();
-        logger.info("Digite a nova data de fim da locação (Padrão dd/MM/yyyy) :");
+        System.out.println("Digite a nova data de fim da locação (Padrão dd/MM/yyyy) :");
         String dataFim = scanner.nextLine();
 
-        Locacoes locacao = Locacoes.builder().dataFim(LocalDate.parse(dataFim, formatter)).dataInicio(LocalDate.parse(dataInicio, formatter)).build();
-
-        Locacoes savedLocacoes = locacoesService.updateLocacoes(id, locacao);
+        Locacoes savedLocacoes = locacoesService.updateLocacoes(id, LocalDate.parse(dataInicio, formatter), LocalDate.parse(dataFim, formatter) );
         if(Objects.nonNull(savedLocacoes))
-            logger.info("Locação atualizada com sucesso!");
+            System.out.println("Locação atualizada com sucesso!");
         else
-            logger.info("Erro ao atualizar locação!");
+            System.out.println("Erro ao atualizar locação!");
     }
 
     @Override
     public void delete() {
-        logger.info("Digite o id da locação a ser deletada :");
+        System.out.println("Digite o id da locação a ser deletada :");
         Long id = scanner.nextLong();
 
         locacoesService.deleteLocacoes(id);
 
-        logger.info("Locação deletada com sucesso!");
+        System.out.println("Locação deletada com sucesso!");
     }
 
     public String relatorio(){
-        logger.info("Insira o mês e o ano que deseja gerar o relatório (MM/yyyy): ");
+        System.out.println("Insira o mês e o ano que deseja gerar o relatório (MM/yyyy): ");
         String mesAno = scanner.nextLine();
 
         LocalDate dataInicio = LocalDate.parse("01/" + mesAno, DateTimeFormatter.ofPattern(DATE_FORMAT));
@@ -113,8 +109,10 @@ public class LocacoesController extends MainController{
                     locacao.getLocadores().getNome(),
                     locacao.getLivros().getTitulo()
             );
-
             table.append(row).append("\n");
+
+            if(locacoes.indexOf(locacao) == locacoes.size() - 1)
+                table.append(PrinterUtils.printLine(row.length()));
         }
 
         return table.toString();

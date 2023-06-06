@@ -18,7 +18,7 @@ public class LocacoesService {
     private final LivrosService livrosService;
 
     public List<Locacoes> listAllLocacoes(){
-        return locacoesRepository.findAll();
+        return locacoesRepository.findAllBy();
     }
 
     public Locacoes findLocacoesById(Long id){
@@ -36,10 +36,10 @@ public class LocacoesService {
         return locacoesRepository.save(locacao);
     }
 
-    public Locacoes updateLocacoes(Long id, Locacoes locacoesToSave)  {
+    public Locacoes updateLocacoes(Long id, LocalDate dataInicio, LocalDate dataFim)  {
         Locacoes currentLocacoes = findLocacoesById(id);
-        currentLocacoes.setDataInicio(locacoesToSave.getDataInicio());
-        currentLocacoes.setDataFim(locacoesToSave.getDataFim());
+        currentLocacoes.setDataInicio(dataInicio);
+        currentLocacoes.setDataFim(dataFim);
 
         return locacoesRepository.save(currentLocacoes);
     }

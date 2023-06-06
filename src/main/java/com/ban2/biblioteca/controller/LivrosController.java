@@ -2,9 +2,11 @@ package com.ban2.biblioteca.controller;
 
 import com.ban2.biblioteca.node.Livros;
 import com.ban2.biblioteca.service.LivrosService;
+import com.ban2.biblioteca.utils.PrinterUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -12,41 +14,44 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class LivrosController extends MainController {
     private final LivrosService livrosService;
+    private static final String[] HEADERS = {"ID", "TITULO", "AUTOR", "CATEGORIA"};
+
     @Override
-    public String listAll() {
+    public void listAll() {
         StringBuilder table = new StringBuilder();
         List<Livros> livros = livrosService.listAllLivros();
+        PrinterUtils.printHeader(Arrays.copyOfRange(HEADERS, 0, 2));
         for(Livros livro : livros){
-            String line = String.format("| %-45d | %-45s %n",
-                    livro.getId(),
-                    livro.getTitulo());
+            String line = String.format("| %-45d | %-45s | %n", livro.getId(), livro.getTitulo());
 
             table.append(line);
+            if(livros.indexOf(livro) == livros.size() - 1)
+                table.append(PrinterUtils.printLine(line.length() - 2));
         }
 
-
-        return table.toString();
+        String retorno = table.toString();
+        System.out.print(retorno);
     }
 
     @Override
-    public String findById() {
-        logger.info("Insira o id do livro que deseja buscar: ");
+    public void findById() {
+        System.out.println("Insira o id do livro que deseja buscar: ");
         Long id = scanner.nextLong();
         Livros livro = livrosService.findLivrosById(id);
-
-        return String.format("| %-45d | %-45s  %n",
-                livro.getId(),
-                livro.getTitulo());
+        PrinterUtils.printHeader(Arrays.copyOfRange(HEADERS, 0, 2));
+        String retorno = String.format("| %-45d | %-45s | %n", livro.getId(), livro.getTitulo());
+        System.out.print(retorno);
+        System.out.print(PrinterUtils.printLine(retorno.length() - 3));
     }
 
     @Override
     public void save() {
-        logger.info("Insira o nome do livro que deseja salvar: ");
+        System.out.println("Insira o nome do livro que deseja salvar: ");
         String nomeLivro = scanner.nextLine();
-        logger.info("Insira o id da categoria do livro: ");
+        System.out.println("Insira o id da categoria do livro: ");
         Long idCategoria = scanner.nextLong();
         scanner.nextLine(); // Consume the \n character
-        logger.info("Insira o id do autor do livro: ");
+        System.out.println("Insira o id do autor do livro: ");
         Long idAutor = scanner.nextLong();
         scanner.nextLine(); // Consume the \n character
 
@@ -54,35 +59,35 @@ public class LivrosController extends MainController {
 
         Livros savedLivro = livrosService.saveLivros(livro, idCategoria, idAutor);
         if(Objects.nonNull(savedLivro))
-            logger.info("Livro salvo com sucesso!");
+            System.out.println("Livro salvo com sucesso!");
         else
-            logger.info("Erro ao salvar livro!");
+            System.out.println("Erro ao salvar livro!");
 
     }
 
     @Override
     public void update() {
-        logger.info("Insira o id do livro que deseja atualizar: ");
+        System.out.println("Insira o id do livro que deseja atualizar: ");
         Long id = scanner.nextLong();
-        logger.info("Insira o novo nome do livro: ");
+        System.out.println("Insira o novo nome do livro: ");
         String nomeLivro = scanner.nextLine();
 
         Livros livro = Livros.builder().titulo(nomeLivro).build();
 
         Livros savedLivro = livrosService.updateLivros(id, livro);
         if(Objects.nonNull(savedLivro))
-            logger.info("Livro atualizado com sucesso!");
+            System.out.println("Livro atualizado com sucesso!");
         else
-            logger.info("Erro ao atualizar livro!");
+            System.out.println("Erro ao atualizar livro!");
     }
 
     @Override
     public void delete() {
-        logger.info("Insira o id do livro que deseja deletar: ");
+        System.out.println("Insira o id do livro que deseja deletar: ");
         Long id = scanner.nextLong();
         livrosService.deleteLivros(id);
 
-        logger.info("Livro deletado com sucesso!");
+        System.out.println("Livro deletado com sucesso!");
     }
 
 
@@ -97,6 +102,9 @@ public class LivrosController extends MainController {
                     livro.getCategorias().get(0).getCategoria());
 
             table.append(line);
+
+            if(livros.indexOf(livro) == livros.size() - 1)
+                table.append(PrinterUtils.printLine(line.length()));
         }
 
         return table.toString();
