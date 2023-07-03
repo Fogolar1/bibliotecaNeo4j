@@ -13,7 +13,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class CategoriaController extends MainController {
     private final CategoriaService categoriaService;
-    private final static String[] HEADERS = {"ID", "CATEGORIA"};
+    private static final String[] HEADERS = {"ID", "CATEGORIA"};
     @Override
     public void listAll() {
         StringBuilder table = new StringBuilder();
@@ -57,6 +57,7 @@ public class CategoriaController extends MainController {
 
     @Override
     public void update() {
+        listAll();
         System.out.println("Insira o id da categoria que deseja atualizar: ");
         Long id = scanner.nextLong();
         System.out.println("Insira o novo nome da categoria: ");
@@ -73,6 +74,7 @@ public class CategoriaController extends MainController {
 
     @Override
     public void delete() {
+        listAll();
         System.out.println("Insira o id da categoria que deseja deletar: ");
         Long id = scanner.nextLong();
         categoriaService.deleteCategorias(id);

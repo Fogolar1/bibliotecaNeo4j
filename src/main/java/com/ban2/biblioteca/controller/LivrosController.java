@@ -14,6 +14,8 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class LivrosController extends MainController {
     private final LivrosService livrosService;
+    private final CategoriaController categoriaController;
+    private final AutorController autorController;
     private static final String[] HEADERS = {"ID", "TITULO", "AUTOR", "CATEGORIA"};
 
     @Override
@@ -48,9 +50,11 @@ public class LivrosController extends MainController {
     public void save() {
         System.out.println("Insira o nome do livro que deseja salvar: ");
         String nomeLivro = scanner.nextLine();
+        categoriaController.listAll();
         System.out.println("Insira o id da categoria do livro: ");
         Long idCategoria = scanner.nextLong();
         scanner.nextLine(); // Consume the \n character
+        autorController.listAll();
         System.out.println("Insira o id do autor do livro: ");
         Long idAutor = scanner.nextLong();
         scanner.nextLine(); // Consume the \n character
@@ -67,6 +71,7 @@ public class LivrosController extends MainController {
 
     @Override
     public void update() {
+        listAll();
         System.out.println("Insira o id do livro que deseja atualizar: ");
         Long id = scanner.nextLong();
         System.out.println("Insira o novo nome do livro: ");
@@ -83,6 +88,7 @@ public class LivrosController extends MainController {
 
     @Override
     public void delete() {
+        listAll();
         System.out.println("Insira o id do livro que deseja deletar: ");
         Long id = scanner.nextLong();
         livrosService.deleteLivros(id);

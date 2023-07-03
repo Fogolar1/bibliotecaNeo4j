@@ -57,6 +57,7 @@ public class EnderecosController extends MainController {
 
     @Override
     public void update() {
+        listAll();
         System.out.println("Insira o id do endereço que deseja atualizar: ");
         Long id = scanner.nextLong();
         System.out.println("Insira a cidade: ");
@@ -80,6 +81,7 @@ public class EnderecosController extends MainController {
 
     @Override
     public void delete() {
+        listAll();
         System.out.println("Insira o id do endereço que deseja deletar: ");
         Long id = scanner.nextLong();
         enderecosService.deleteEnderecos(id);

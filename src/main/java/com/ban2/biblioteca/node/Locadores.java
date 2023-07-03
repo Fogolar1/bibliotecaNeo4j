@@ -35,4 +35,11 @@ public class Locadores {
         else
             this.enderecos.add(endereco);
     }
+
+    public void locou(Locacoes locacao){
+        if(this.locacoes == null)
+            this.locacoes = List.of(locacao);
+        else
+            this.locacoes.add(locacao);
+    }
 }

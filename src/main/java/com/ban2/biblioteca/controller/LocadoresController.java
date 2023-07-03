@@ -16,6 +16,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class LocadoresController extends MainController{
     private final LocadoresService locadoresService;
+    private final EnderecosController enderecosController;
     private static final String[] HEADERS = {"ID", "NOME", "TELEFONE", "EMAIL", "CIDADE", "BAIRRO", "LOGRADOURO", "NUMERO"};
 
     @Override
@@ -44,6 +45,7 @@ public class LocadoresController extends MainController{
         scanner.nextLine();
         System.out.println("Digite o email do locador: ");
         String email = scanner.nextLine();
+        enderecosController.listAll();
         System.out.println("Digite o id do endereço do locador: ");
         Long idEndereco = scanner.nextLong();
         scanner.nextLine();
@@ -59,6 +61,7 @@ public class LocadoresController extends MainController{
 
     @Override
     public void update() {
+        listAll();
         System.out.println("Digite o id do locador que deseja atualizar : ");
         Long id = scanner.nextLong();
         System.out.println("Digite o novo nome do locador: ");
@@ -81,6 +84,7 @@ public class LocadoresController extends MainController{
 
     @Override
     public void delete() {
+        listAll();
         System.out.println("Digite o id do locador que deseja deletar: ");
         Long id = scanner.nextLong();
         locadoresService.deleteLocadores(id);

@@ -4,7 +4,6 @@ import com.ban2.biblioteca.node.Autores;
 import com.ban2.biblioteca.service.AutorService;
 import com.ban2.biblioteca.utils.PrinterUtils;
 import lombok.RequiredArgsConstructor;
-import org.springframework.format.Printer;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
@@ -64,6 +63,7 @@ public class AutorController extends MainController {
 
     @Override
     public void update() {
+        listAll();
         System.out.println(ASK_FOR_ID);
         Long id = scanner.nextLong();
         System.out.println("Digite o novo nome do autor: ");
@@ -80,6 +80,7 @@ public class AutorController extends MainController {
 
     @Override
     public void delete() {
+        listAll();
         System.out.println(ASK_FOR_ID);
         Long id = scanner.nextLong();
 

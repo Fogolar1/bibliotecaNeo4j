@@ -29,6 +29,14 @@ public class LocadoresService {
         return locadorRepository.save(locador);
     }
 
+    public Locadores save(Locadores locador){
+        return locadorRepository.save(locador);
+    }
+
+    public Locadores findByLocacao(Long id){
+        return locadorRepository.findById(locadorRepository.getByLocacao(id)).orElseThrow(() -> new RuntimeException("Locador não encontrado"));
+    }
+
     public Locadores updateLocadores(Long id, Locadores locadorToUpdate)  {
         Locadores currentLocador = findLocadoresById(id);
 
