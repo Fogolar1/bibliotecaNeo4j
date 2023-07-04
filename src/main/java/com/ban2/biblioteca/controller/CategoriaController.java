@@ -60,6 +60,7 @@ public class CategoriaController extends MainController {
         listAll();
         System.out.println("Insira o id da categoria que deseja atualizar: ");
         Long id = scanner.nextLong();
+        scanner.nextLine();
         System.out.println("Insira o novo nome da categoria: ");
         String nomeCategoria = scanner.nextLine();
         Categorias categoria = Categorias.builder().categoria(nomeCategoria).build();

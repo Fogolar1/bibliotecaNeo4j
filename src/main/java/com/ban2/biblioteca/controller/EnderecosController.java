@@ -60,6 +60,7 @@ public class EnderecosController extends MainController {
         listAll();
         System.out.println("Insira o id do endereço que deseja atualizar: ");
         Long id = scanner.nextLong();
+        scanner.nextLine();
         System.out.println("Insira a cidade: ");
         String cidade = scanner.nextLine();
         System.out.println("Insira o bairro: ");
@@ -68,6 +69,7 @@ public class EnderecosController extends MainController {
         String logradouro = scanner.nextLine();
         System.out.println("Insira o número: ");
         Long numero = scanner.nextLong();
+        scanner.nextLine();
 
         Enderecos endereco = Enderecos.builder().cidade(cidade).bairro(bairro).logradouro(logradouro).numero(numero).build();
 

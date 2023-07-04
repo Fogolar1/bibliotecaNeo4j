@@ -66,6 +66,7 @@ public class AutorController extends MainController {
         listAll();
         System.out.println(ASK_FOR_ID);
         Long id = scanner.nextLong();
+        scanner.nextLine();
         System.out.println("Digite o novo nome do autor: ");
         String nome = scanner.nextLine();
         Autores autorToSave = Autores.builder().nome(nome).build();

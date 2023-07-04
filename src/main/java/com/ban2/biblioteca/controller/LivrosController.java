@@ -74,6 +74,7 @@ public class LivrosController extends MainController {
         listAll();
         System.out.println("Insira o id do livro que deseja atualizar: ");
         Long id = scanner.nextLong();
+        scanner.nextLine();
         System.out.println("Insira o novo nome do livro: ");
         String nomeLivro = scanner.nextLine();
 
@@ -100,8 +101,10 @@ public class LivrosController extends MainController {
     public String relatorio() {
         StringBuilder table = new StringBuilder();
         List<Livros> livros = livrosService.listAllLivros();
+        PrinterUtils.printHeader(new String[]{"ID", "TITULO", "AUTOR", "CATEGORIA"});
+
         for (Livros livro : livros) {
-            String line = String.format("| %-45d | %-45s | %-45s | %-45s %n",
+            String line = String.format("| %-45d | %-45s | %-45s | %-45s | %n",
                     livro.getId(),
                     livro.getTitulo(),
                     livro.getAutores().get(0).getNome(),
@@ -110,7 +113,7 @@ public class LivrosController extends MainController {
             table.append(line);
 
             if(livros.indexOf(livro) == livros.size() - 1)
-                table.append(PrinterUtils.printLine(line.length()));
+                table.append(PrinterUtils.printLine(line.length() - 3));
         }
 
         return table.toString();

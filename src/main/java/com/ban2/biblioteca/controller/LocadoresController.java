@@ -64,10 +64,12 @@ public class LocadoresController extends MainController{
         listAll();
         System.out.println("Digite o id do locador que deseja atualizar : ");
         Long id = scanner.nextLong();
+        scanner.nextLine();
         System.out.println("Digite o novo nome do locador: ");
         String nome = scanner.nextLine();
         System.out.println("Digite o novo telefone do locador: ");
         Integer telefone = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("Digite o novo email do locador: ");
         String email = scanner.nextLine();
 
@@ -93,13 +95,17 @@ public class LocadoresController extends MainController{
     public String relatorio(){
         List<Locadores> locadores = locadoresService.listAllLocadores();
         StringBuilder table = new StringBuilder();
+        PrinterUtils.printHeader(HEADERS);
         for(Locadores locador : locadores){
             Enderecos enderecos = locador.getEnderecos().get(0);
-            String row = String.format("| %-45d | %-45s | %-45s | %-45s | %-45s | %-45s | %-45s | %-45d",
+            String row = String.format("| %-45d | %-45s | %-45s | %-45s | %-45s | %-45s | %-45s | %-45d |",
                     locador.getId(), locador.getNome(), locador.getTelefone(), locador.getEmail(),
                     enderecos.getCidade(), enderecos.getBairro(), enderecos.getLogradouro(), enderecos.getNumero());
 
             table.append(row).append("\n");
+
+            if(locadores.indexOf(locador) == locadores.size() - 1)
+                table.append(PrinterUtils.printLine(row.length()));
         }
         return table.toString();
     }
