@@ -36,8 +36,6 @@ public class LivrosService {
         Livros currentLivro = findLivrosById(id);
 
         currentLivro.setTitulo(livroToUpdate.getTitulo());
-        currentLivro.setAutores(livroToUpdate.getAutores());
-        currentLivro.setCategorias(livroToUpdate.getCategorias());
         return livrosRepository.save(currentLivro);
     }
 
